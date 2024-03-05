@@ -7,7 +7,6 @@ from util import *
 
 import abc
 import serial
-import bluetooth
 from serial.tools.list_ports_common import ListPortInfo
 
 BluetoothDeviceInfo = Tuple[str, str, str]
@@ -42,33 +41,34 @@ class BluetoothPrinterDevice(PrinterDevice):
 
     @classmethod
     async def list_devices(cls) -> List[Tuple[str, PrinterDevice]]:
-        devices = bluetooth.discover_devices(1, flush_cache=False, lookup_names=True, lookup_class=True)
+        return []
+        # devices = bluetooth.discover_devices(1, flush_cache=False, lookup_names=True, lookup_class=True)
 
-        return [(name if not None else address, BluetoothPrinterDevice(address, service)) for address, name, service in
-                devices]
+        # return [(name if not None else address, BluetoothPrinterDevice(address, service)) for address, name, service in
+        #         devices]
 
     def test(self):
         log.info(f'Scanning {self.address} for services...')
-        service_matches = bluetooth.find_service(address=self.address)
+        # service_matches = bluetooth.find_service(address=self.address)
 
-        first_match = service_matches[0]
+        # first_match = service_matches[0]
 
-        port = first_match["port"]
-        name = first_match["name"]
-        host = first_match["host"]
+        # port = first_match["port"]
+        # name = first_match["name"]
+        # host = first_match["host"]
 
     def open(self):
-        service_matches = bluetooth.find_service(address=self.address)
+        # service_matches = bluetooth.find_service(address=self.address)
 
-        first_match = service_matches[0]
+        # first_match = service_matches[0]
 
-        port = first_match["port"]
-        name = first_match["name"]
-        host = first_match["host"]
+        # port = first_match["port"]
+        # name = first_match["name"]
+        # host = first_match["host"]
 
-        socket = bluetooth.BluetoothSocket()
-        socket.connect((host, port))
-        return socket
+        # socket = bluetooth.BluetoothSocket()
+        # socket.connect((host, port))
+        return None
 
 
 class SerialPrinterDevice(PrinterDevice):
